@@ -1,4 +1,4 @@
-# Instalación de paquetes
+# Python: Instalación de paquetes y entornos
 
 ## pip
 
@@ -25,11 +25,16 @@ Nota: En Ubuntu 23 da problemas porque esta instalación se realiza con ``apt ge
 
 
 
-## Entornos virtuales
+## Entornos virtuales. 1 versión de Python
+**De momento solo tengo una versión de Python**
 
-Son empaquetdos de librerías
+Son empaquetados de librerías. 
 
-En la carpeta que elija como base de mi proyecto, escribo esta sentencia y crea toda una estructura del intérprete de python con sus librerías. Crea un subcarpeta llamada **env**, donde estará el entorno virtual.
+
+### Venv
+
+En la carpeta que elija como base de mi proyecto, escribo esta sentencia y crea toda una estructura del intérprete de python con sus librerías. Crea un subcarpeta llamada **env**, donde estará el entorno virtual. Puedo darle otros nombre en lugar de **env**.
+
 
 ``python3 -m venv env`` 
 
@@ -43,141 +48,148 @@ Para **desactivar** ambiente virtual
 
 ``deactivate``
 
-
-
-#######################
-# pipenv (venv + pip3)
-#######################
-pip3 install pipenv # Puede que en ubuntu 23: sudo apt-get install python3-pipenv
-
-# una vez instalado pipenv
-pipenv install requests # para instalar el paquete
-# EN la carpeta del proyecto creará dos archivos pipfile y pipfile.lock
-pipenv uninstall requests # Desinstala y actualiza pipefile
-
-
-# ¿Dónde esta la carpeta env de antes?
-pipenv --venv
-# /home/david/.local/share/virtualenvs/package-LTdZVCTL
-# Se hace así de manera práctica para liberar carga en nustro proyecto
-# por si lo tenemos que compartir con otros desarrolladores
-
-# Puedo seleccionar un intérprete u otro en VSCODE refrescando abajo el desplegable
-# o también puedo teclear en la carpeta del proyecto
-pipenv shell # para lanzar el ambiente virtual de la carpeta donde estoy
-exit # para salir del ambiente virtual
-
-# Pipfile
-# Para instalar todas las dependencias definidas en pipfile
-pipenv install
-# Para instalar todas las dependencias definidas en pipfile.lock (versiones exactas)
-pipenv install --ignore-pipfile
-# Esta orden creará el ambiente y las dependencias requeridas
-
-
-#######################
-# pipenv graph : gestionando dependencias
-#######################
-pipenv graph
-pipenv uninstall requests
-pipenv graph # Sisguen estando las dependencias de requests
-
-pipenv install requests==2.10.*
-
-pipenv update --outdated # Lista todos los paquetes que pueden ser actualizados potencialmente
-pipenv update # Actualiza todos
-pipenv update requests # Actualiza solo el paquete requests
+Para eliminarlo por completo:
+``rm -r env``
 
 
 
+### Pipenv (venv + pip3)
 
-#####################
-## ¿Cómo administrar multiples versiones de Python
+Instalación de *Pipenv*:
 
-https://www.freecodecamp.org/espanol/news/administrar-multiples-versiones-de-python-y-entornos-virtuales/
+``pip3 install pipenv``
 
-Múltiples versiones de Python: Diferentes instalaciones de Python en la misma máquina, por ejemplo, 2.7 y 3.4.
+Nota: En ubuntu 23 ``sudo apt-get install python3-pipenv``
 
-Necesito la 3.7.2
+Una vez instalado pipenv, para instalar el paquete **requests**
 
-Entornos virtuales: entornos independientes aislados que pueden tener tanto una versión específica de Python como de cualesquiera paquetes específicos de proyecto instalados en ellos, sin afectar a otros proyecto
+``pipenv install requests`` 
 
-3 herramientas
+Nota: En la carpeta del proyecto creará dos archivos **pipfile** y **pipfile.lock**. Estos dos archivos contendrán todas las dependencias del proyecto.
 
-venv  => Solo una versión de python con diferentes entornos virtuales. (pipenv = venv + pip3)
-/ pyvenv => script obsoleto para multiples versiones de python
+``pipenv uninstall requests`` > Desinstala y actualiza pipefile
 
 
-pyenv => múltiples versiones de python en 3.3+ con o sin entornos virtuales
+**¿Dónde esta la carpeta 'env' de antes?**
 
-pyenv-virtualenv => ython 2
+``pipenv --venv``
 
-#venv
-Desde Python 3.3+ el paquete venv está incluido. Es ideal para crear entornos virtuales ligeros.
+*/home/david/.local/share/virtualenvs/package-LTdZVCTL*
 
-python3 -m venv nombre-del-directorio-a-crear => crea un entorno virtual
-$ source nombre-dado/bin/activate => para activarlo
-$ deactivate => para desactivarlo
-$ rm -r nombre-dado => Eliminar por completo después de deactivarlo
+Nota: Se hace así de manera práctica para liberar carga en nustro proyecto por si lo tenemos que compartir con otros desarrolladores. 
 
-Para indicar una versión:
-$ python3.6 -m venv example-three-six
+**¿Cómo selecciono un intérprete u otro?**
+
+1) En VSCODE refrescando abajo el desplegable.
+
+2)  Teclear en la carpeta del proyecto
+
+``pipenv shell`` > Lanza el ambiente virtual de la carpeta donde estoy.
+
+``exit`` > Salir del ambiente virtual.
+
+
+``pipenv install`` > Instala todas las dependencias definidas en **pipfile**.
+
+``pipenv install --ignore-pipfile`` > Instala todas las dependencias definidas en **pipfile.lock** (versiones exactas)
+
+Nota: Esta orden creará el ambiente y las dependencias requeridas
+
+### Gestión de dependencias
+
+``pipenv graph`` > Ver dependencias
+``pipenv uninstall requests``
+``pipenv graph`` > Siguen estando las dependencias de **requests**
+
+``pipenv install requests==2.10.*``
+
+``pipenv update --outdated`` > Lista todos los paquetes que pueden ser actualizados potencialmente
+``pipenv update`` > Actualiza todos
+``pipenv update requests`` > Actualiza solo el paquete **requests**
+
+
+
+## Administrar multiples versiones de Python
+
+Fuente: https://www.freecodecamp.org/espanol/news/administrar-multiples-versiones-de-python-y-entornos-virtuales/
+
+**Ahora doy un paso más y tengo múltiples versiones de Python**: Diferentes instalaciones de Python en la misma máquina, por ejemplo, 2.7 y 3.4. Necesito la 3.7.2
+
+**Entornos virtuales**: entornos independientes aislados que pueden tener tanto una versión específica de Python como de cualesquiera paquetes específicos de proyecto instalados en ellos, sin afectar a otros proyecto
+
+**3 herramientas:**
+
+* **venv**: Solo una versión de python con diferentes entornos virtuales. **(pipenv = venv + pip3)**. *Ver apuntes arriba*. Desde Python 3.3+ el paquete venv está incluido. Es ideal para crear entornos virtuales ligeros.
+
+* **pyvenv**: script obsoleto para multiples versiones de python. Envoltorio venv, script obsoleto en 3.8. Hasta Python 3.6 un script llamado pyvenv también se incluyó como envoltorio de  venv, pero ya es obsoleto. Se eliminará por completo en Python 3.8.
+
+* **pyenv-virtualenv**: Para Python 2
+
+* **pyenv (OPCIÓN ELEGIDA)**: múltiples versiones de python en 3.3+ con o sin entornos virtuales.
+
+
+Para **indicar una versión** de Python con **venv**:
+
+``python3.6 -m venv example-three-six``
 
 Cuando el entorno está activo, cualquier paquete puede ser instalado ahí mediante pip de manera normal
 Se recomienda hacer esto para actualizar pip:
-pip install --upgrade pip
 
-requirements.txt especificando sus dependencias
-pip install -r requirements.txt => instala las dependencias
+``pip install --upgrade pip``
+
+**Instalando dependencias:** con *requirements.txt* 
+
+``pip install -r requirements.txt`` > Instala las dependencias
 
 
-#pyvenv => envoltorio venv, script obsoleto en 3.8
-Hasta Python 3.6 un script llamado pyvenv también se incluyó como envoltorio de  venv, pero ya es obsoleto. Se eliminará por completo en Python 3.8.
-
-#pyenv 
+## Pyenv 
 Instalar: https://github.com/pyenv/pyenv-installer
 
-pyenv versions
-python3 --version
-pyenv install 3.7.2
+``pyenv versions``
+``python3 --version``
+``pyenv install 3.7.2``
 
 Nota: Abro terminal
-python3 --version
-=> Python 3.11.4 (la global del sistema)
+``python3 --version`` > Python 3.11.4 (la global del sistema)
 
-python --version 
-=> error
+``python --version`` > error
 
-Voy a carpeta Gauss con .python-version 3.7.2
-python3 --version
-=> Python 3.7.2 
-python --version
-=> Python 3.7.2 
+Voy a carpeta Gauss con *.python-version* 3.7.2
 
+``python3 --version`` > Python 3.7.2 
+``python --version`` > Python 3.7.2 
 
+# Instalación Gauss:
 
-# Para instalar Gauss:
-pyenv install 3.7.17  => instalo la versions de python
-pyenv virtualenv 3.7.17 gaussApp => creo un entorno virtual sobre la version
-pyenv versions => veo todo, no es como rvm que tengo gemsets por separado
-git clone https://github.com/jjmartinr01/gauss3.git gauss3
-cd gauss
-pyenv local gaussApp => al ejecutar en un directorio, activa la versión y crea .python-version
-pip install -r requirements.txt
+``pyenv install 3.7.17``  > instalo la versions de Python
 
+``pyenv virtualenv 3.7.17 gaussApp`` > Creo un entorno virtual sobre la version
+``pyenv versions`` > Veo todo, versiones y entornos virtuales. No es como *rvm* que tengo gemsets por separado.
 
-# Para célery añadir 
- importlib-metadata==4.13.0
+``git clone https://github.com/jjmartinr01/gauss3.git gauss3``
+
+``cd gauss``
+
+``pyenv local gaussApp`` > Aplicamos el entorno virtual al directorio. Activa la versión y crea *.python-version*.
+
+``pip install -r requirements.txt`` > Instalamos dependencias
 
 
-pipenv shell # para lanzar el ambiente virtual de la carpeta donde estoy
-pipenv --venv
-# /home/david/.local/share/virtualenvs/package-LTdZVCTL
+**Para célery añadir**_
+
+``importlib-metadata==4.13.0``
+
+**Mezcla con pipenv**:
+
+``pipenv shell`` > para lanzar el ambiente virtual de la carpeta donde estoy
+
+``pipenv --venv`` > Puedo ver dónde **pyenv** guarda el entorno virtual. Si detecta que el entorno ha sido creado con **pyenv** lo respetará.
 
 
+``pip install -r requirements.txt`` > Instala las dependencias
 
-pip install -r requirements.txt => instala las dependencias
-Me da problemas paho-mqtt
- > instalo: pip install --upgrade setuptools
-y parece que me deja con un warning.Warning
-Luego se isntalan más cosas, pero gracias al setuptools, lo solventa aunque haya errores
+``` 
+Nota: Da problemas **paho-mqtt**
+instalo: ``pip install --upgrade setuptools``
+Me deja con un warning. Gracias al setuptools, lo solventa aunque haya errores
+```
