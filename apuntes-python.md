@@ -109,6 +109,7 @@ Nota: Esta orden creará el ambiente y las dependencias requeridas
 
 
 
+
 ## Administrar multiples versiones de Python
 
 Fuente: https://www.freecodecamp.org/espanol/news/administrar-multiples-versiones-de-python-y-entornos-virtuales/
@@ -149,6 +150,22 @@ Instalar: https://github.com/pyenv/pyenv-installer
 ``python3 --version``
 ``pyenv install 3.7.2``
 
+
+**Creo un entorno virtual** específico:
+
+``pyenv virtualenv 3.7.17 miEntorno`` > Creo un entorno virtual sobre la version
+``pyenv versions`` > Veo todo, versiones y entornos virtuales. No es como *rvm* que tengo gemsets por separado.
+
+**Activo**, en el directorio del proyecto, el entorno creado:
+
+``pyenv local gaussApp`` > Aplicamos el entorno virtual al directorio. Activa la versión y crea *.python-version*.
+
+Para **instalar paquetes** puedo usar *pip3*:
+
+``python -m pip install Django``
+
+
+
 Nota: Abro terminal
 ``python3 --version`` > Python 3.11.4 (la global del sistema)
 
@@ -158,6 +175,56 @@ Voy a carpeta Gauss con *.python-version* 3.7.2
 
 ``python3 --version`` > Python 3.7.2 
 ``python --version`` > Python 3.7.2 
+
+
+
+### Prolema: '_tkinter'
+Trato de instalar Python 12 con:
+
+``pyenv install 3.12``
+
+*Error:*
+``` 
+ModuleNotFoundError: No module named '_tkinter'
+WARNING: The Python tkinter extension was not compiled and GUI subsystem has been detected. Missing the Tk toolkit?
+Installed Python-3.12.0 to /home/david/.pyenv/versions/3.12.0 
+```
+
+*Solución*:
+
+``sudo apt update``
+``sudo apt install tk-dev``
+
+```
+Set the TCL_LIBRARY and TK_LIBRARY environment variables. You can do this in your shell configuration file (e.g., ~/.bashrc or ~/.zshrc) or set them temporarily for your session. Replace <path_to_tcl> and <path_to_tk> with the actual paths
+
+export TCL_LIBRARY="<path_to_tcl>/lib"
+export TK_LIBRARY="<path_to_tk>/lib"
+```
+
+Para ver el path de las librerías creo un archivo **path.py**
+
+```
+import tkinter
+root = tkinter.Tk()
+print(root.tk.exprstring('$tcl_library'))
+print(root.tk.exprstring('$tk_library'))
+```
+
+*output*: ``python3 path.py``
+
+/usr/share/tcltk/tcl8.6
+/usr/share/tcltk/tk8.6
+
+Copio este código en: *.bash_profile*, *.bash_rc*, *.profile* ty en *.zshrc*:
+
+```
+# Set the TCL_LIBRARY and TK_LIBRARY environment variables. You can do this in your shell configuration file (e.g., ~/.bashrc or ~/.zshrc) or set them temporarily for your session. Replace <path_to_tcl> and <path_to_tk> with the actual paths
+#export TCL_LIBRARY="/usr/share/tcltk/tcl8.6/lib"
+#export TK_LIBRARY="/usr/share/tcltk/tk8.6/lib"
+```
+
+
 
 # Instalación Gauss:
 
