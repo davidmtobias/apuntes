@@ -47,6 +47,8 @@ Me deja con un warning. Gracias al setuptools, lo solventa aunque haya errores
 
 Toda aplicación Django tiene un archivo **settings.py** de configuración. Te lo paso por email y hay que colocarlo en la carpeta: **gauss**.
 
+**El settings que te he enviado por correo tiene extensión *txt*, cámbiala a *py*. Si no, no se podía enviar por email.**
+
 He realizado alguna modificación para adaptarlo a mi entorno en local. Te paso dos, el *settings.py* original que me pasó Juango y el *settings-david.py* que es el que he utilizado yo para mi máquina en local. 
 
 ## 3 Instalación de Postgresql
